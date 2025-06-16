@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Mukjizat Nabi Isa</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+    
+    <!-- Marker untuk mukjizat Nabi Isa -->
+    <a-marker type="pattern" url="pattern-create.patt">
+      
+      <!-- Model 3D -->
+      <a-entity 
+        gltf-model="url(path_of_mysteries_3_-_medjugorge_scaniverse.glb)" 
+        scale="0.3 0.3 0.3" 
+        position="0 -10 0"
+        animation="property: rotation; to: 0 360 0; loop: true; dur: 15000; easing: linear">
+      </a-entity>
+      
+      <!-- Teks kisah singkat -->
+      <a-text 
+        value="Nabi Isa menunjukkan mukjizat luar biasa: \nmenyembuhkan orang sakit, \nmenghidupkan orang mati,\ndan menciptakan burung dari tanah.\nSemua itu atas izin Allah." 
+        position="0 0.5 0" 
+        align="center" 
+        color="#000000" 
+        scale="1.2 1.2 1.2"
+        side="double">
+      </a-text>
+
+    </a-marker>
+
+    <a-entity camera></a-entity>
+  </a-scene>
+</body>
+</html>
