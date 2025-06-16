@@ -6,15 +6,36 @@
   </head>
   <body style="margin: 0; overflow: hidden">
     <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-      <a-marker type="pattern" url="pattern-create.patt">
+      <a-marker type="pattern" url="pattern-jesussss.patt">
+
+        <!-- Model 3D -->
         <a-entity
-          gltf-model="url(path_of_mysteries_3_-_medjugorge_scaniverse.glb)"
-          scale="0.3 0.3 0.3"
-          position="0 -10 0"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 15000; easing: linear"
-        >
-        </a-entity>
+          gltf-model="url(jesus_statues.glb)"
+          scale="0.015 0.015 0.015"
+          position="0 0 0"
+        ></a-entity>
+
+        <!-- Card teks (kotak) -->
+        <a-plane
+          position="0 -0.3 0"
+          width="1.2"
+          height="0.4"
+          color="#000000"
+          opacity="0.7"
+          radius="0.05"
+        ></a-plane>
+
+        <!-- Teks di atas plane -->
+        <a-text
+          value="Nabi Isa a.s.\nSalah satu Nabi Ulul Azmi"
+          align="center"
+          color="#FFFFFF"
+          position="0 -0.3 0.01"
+          scale="0.4 0.4 0.4"
+        ></a-text>
+
       </a-marker>
+
       <a-entity camera></a-entity>
     </a-scene>
   </body>
