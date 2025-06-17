@@ -28,60 +28,61 @@
 </head>
 <body>
   <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+    <!-- Asset loader -->
+    <a-assets>
+      <a-asset-item id="modelIsa" src="nabi_isa.glb"></a-asset-item>
+      <audio id="narasi" src="nabi_isa.mp3" preload="auto"></audio>
+    </a-assets>
+
     <!-- Marker untuk Nabi Isa -->
     <a-marker type="pattern" url="pattern-create.patt" id="isa-marker">
       <!-- Model Nabi Isa -->
       <a-entity 
         id="isa-model"
-        gltf-model="url(nabi_isa.glb)"
-        scale="0.1 0.1 0.1"
-        position="-1.2 -20 1"
+        gltf-model="#modelIsa"
+        scale="0.3 0.3 0.3"
+        position="0 -0.2 0"
         visible="false">
       </a-entity>
 
       <!-- Card dan teks pertama -->
       <a-entity id="first-card" visible="false">
-        <a-plane position="0 0.4 0.6" width="1.2" height="0.4" color="#ff0000" opacity="0"
+        <a-plane position="0 0.6 1.2" width="1.2" height="0.4" color="#ff0000" opacity="0"
           animation="property: opacity; to: 0.9; dur: 1000; startEvents: fade-in">
         </a-plane>
         <a-text value="Nabi Isa a.s.\nSalah satu Nabi Ulul Azmi" align="center" color="#ffffff"
-          position="0 0.4 0.61" scale="0.4 0.4 0.4" opacity="0"
+          position="0 0.6 1.21" scale="0.4 0.4 0.4" opacity="0"
           animation="property: opacity; to: 1; dur: 1500; startEvents: fade-in">
         </a-text>
       </a-entity>
 
       <!-- Card dan teks kedua -->
       <a-entity id="second-card" visible="false">
-        <a-plane position="0 0.4 0.6" width="1.2" height="0.4" color="#ff0000" opacity="0"
+        <a-plane position="0 0.6 1.2" width="1.2" height="0.4" color="#ff0000" opacity="0"
           animation="property: opacity; to: 0.9; dur: 1000; startEvents: show-second">
         </a-plane>
         <a-text value="Gambar hanya ilustrasi" align="center" color="#ffffff"
-          position="0 0.4 0.61" scale="0.4 0.4 0.4" opacity="0"
+          position="0 0.6 1.21" scale="0.4 0.4 0.4" opacity="0"
           animation="property: opacity; to: 1; dur: 1500; startEvents: show-second">
         </a-text>
       </a-entity>
 
       <!-- Card cerita Nabi Isa -->
       <a-entity id="story-card" visible="false">
-        <a-plane position="0 -0.6 0.6" width="2" height="1.4" color="#333333" opacity="0"
+        <a-plane position="0 -0.6 1.2" width="2" height="1.4" color="#333333" opacity="0"
           animation="property: opacity; to: 0.9; dur: 1000; startEvents: show-story">
         </a-plane>
         <a-text value="Kisah Nabi Isa" align="center" color="#ffffff"
-          position="0 -0.3 0.61" width="2.5" opacity="0"
+          position="0 -0.3 1.21" width="2.5" opacity="0"
           animation="property: opacity; to: 1; dur: 1500; startEvents: show-story">
         </a-text>
         <a-text value="5 Mukjizat Nabi Isa a.s.:\n\n1. Diciptakan tanpa ayah\n2. Bicara sejak bayi\n3. Membentuk burung dari tanah\n4. Menyembuhkan penyakit\n5. Menghidupkan orang mati"
-          align="center" color="#ffffff" position="0 -0.7 0.61" width="2" 
+          align="center" color="#ffffff" position="0 -0.7 1.21" width="2" 
           opacity="0" wrap-count="30" scale="0.3 0.3 0.3"
           animation="property: opacity; to: 1; dur: 2000; startEvents: show-story; delay: 500">
         </a-text>
       </a-entity>
     </a-marker>
-
-    <!-- Audio narasi Nabi Isa -->
-    <a-assets>
-      <audio id="narasi" src="nabi_isa.mp3" preload="auto"></audio>
-    </a-assets>
 
     <a-entity camera></a-entity>
   </a-scene>
@@ -121,11 +122,6 @@
               narasiAudio.play();
               this.style.display = 'none';
             };
-
-            narasiAudio.play().catch(() => {
-              console.log("Autoplay dicegah oleh browser");
-            });
-
           }, 3000);
         }, 3000);
       });
