@@ -11,7 +11,6 @@
       overflow: hidden;
       font-family: Arial, sans-serif;
     }
-
     #playButton {
       position: absolute;
       bottom: 20px;
@@ -29,26 +28,20 @@
 </head>
 <body>
   <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-    <!-- Asset audio -->
-    <a-assets>
-      <audio id="narasi" src="nabi_isa.mp3" preload="auto"></audio>
-    </a-assets>
+    
+    <!-- Marker dengan ID dan file pattern yang benar -->
+    <a-marker type="pattern" url="pattern-create.patt" id="marker-isa">
 
-    <!-- Kamera -->
-    <a-entity camera></a-entity>
-
-    <!-- Marker -->
-    <a-marker type="pattern" url="pattern-create.patt" id="nuh-marker">
-      <!-- Model 3D -->
+      <!-- Model 3D Nabi Isa -->
       <a-entity 
         id="ship-model"
         gltf-model="url(jesus_statues.glb)"
-        scale="0.3 0.3 0.3"
+        scale="0.5 0.5 0.5"
         position="0 0 0"
         visible="false">
       </a-entity>
 
-      <!-- Card dan teks pertama -->
+      <!-- Card pertama -->
       <a-entity id="first-card" visible="false">
         <a-plane position="0 0.4 0.6" width="1.2" height="0.4" color="#ff0000" opacity="0"
           animation="property: opacity; to: 0.9; dur: 1000; startEvents: fade-in">
@@ -59,7 +52,7 @@
         </a-text>
       </a-entity>
 
-      <!-- Card dan teks kedua -->
+      <!-- Card kedua -->
       <a-entity id="second-card" visible="false">
         <a-plane position="0 0.4 0.6" width="1.2" height="0.4" color="#ff0000" opacity="0"
           animation="property: opacity; to: 0.9; dur: 1000; startEvents: show-second">
@@ -70,30 +63,37 @@
         </a-text>
       </a-entity>
 
-      <!-- Card narasi -->
+      <!-- Card cerita utama -->
       <a-entity id="story-card" visible="false">
-        <a-plane position="0 -0.5 0.4" width="1.8" height="1.2" color="#333333" opacity="0"
+        <a-plane position="0 -0.6 0.6" width="2" height="1.4" color="#333333" opacity="0"
           animation="property: opacity; to: 0.9; dur: 1000; startEvents: show-story">
         </a-plane>
         <a-text value="Kisah Nabi Isa" align="center" color="#ffffff"
-          position="0 -0.3 0.41" width="2.5" opacity="0"
+          position="0 -0.3 0.61" width="2.5" opacity="0"
           animation="property: opacity; to: 1; dur: 1500; startEvents: show-story">
         </a-text>
-        <a-text value="5 Mukjizat Nabi Isa a.s.:\n\n1. Diciptakan tanpa ayah\n2. Bisa bicara saat bayi\n3. Membuat burung dari tanah\n4. Menyembuhkan penyakit\n5. Menghidupkan orang mati"
-          align="center" color="#ffffff" position="0 -0.5 0.41" width="2"
+        <a-text value="5 Mukjizat Nabi Isa a.s.:\n\n1. Diciptakan tanpa ayah\n2. Bicara sejak bayi\n3. Membentuk burung dari tanah\n4. Menyembuhkan penyakit\n5. Menghidupkan orang mati"
+          align="center" color="#ffffff" position="0 -0.7 0.61" width="2" 
           opacity="0" wrap-count="30" scale="0.3 0.3 0.3"
           animation="property: opacity; to: 1; dur: 2000; startEvents: show-story; delay: 500">
         </a-text>
       </a-entity>
     </a-marker>
+
+    <!-- Asset audio -->
+    <a-assets>
+      <audio id="narasi" src="nabi_isa.mp3" preload="auto"></audio>
+    </a-assets>
+
+    <a-entity camera></a-entity>
   </a-scene>
 
-  <!-- Tombol untuk memutar narasi -->
+  <!-- Tombol Play Narasi -->
   <button id="playButton">Putar Narasi</button>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const marker = document.getElementById('nuh-marker');
+    document.addEventListener('DOMContentLoaded', function() {
+      const marker = document.getElementById('marker-isa');
       const shipModel = document.getElementById('ship-model');
       const firstCard = document.getElementById('first-card');
       const secondCard = document.getElementById('second-card');
@@ -101,43 +101,42 @@
       const playButton = document.getElementById('playButton');
       const narasiAudio = document.getElementById('narasi');
 
-      // Saat marker terdeteksi
-      marker.addEventListener('markerFound', function () {
+      // Saat marker ditemukan
+      marker.addEventListener('markerFound', function() {
         shipModel.setAttribute('visible', 'true');
+
         firstCard.setAttribute('visible', 'true');
         firstCard.querySelector('a-plane').emit('fade-in');
         firstCard.querySelector('a-text').emit('fade-in');
 
-        // Tampilkan card ke-2 setelah 3 detik
-        setTimeout(function () {
+        setTimeout(function() {
           firstCard.setAttribute('visible', 'false');
           secondCard.setAttribute('visible', 'true');
           secondCard.querySelector('a-plane').emit('show-second');
           secondCard.querySelector('a-text').emit('show-second');
 
-          // Tampilkan narasi setelah 3 detik
-          setTimeout(function () {
+          setTimeout(function() {
             secondCard.setAttribute('visible', 'false');
             storyCard.setAttribute('visible', 'true');
             storyCard.querySelector('a-plane').emit('show-story');
-            storyCard.querySelectorAll('a-text').forEach(el => el.emit('show-story'));
+            storyCard.querySelectorAll('a-text').forEach(text => text.emit('show-story'));
 
+            // Tampilkan tombol play
             playButton.style.display = 'block';
             playButton.onclick = function () {
               narasiAudio.play();
               this.style.display = 'none';
             };
 
-            // Coba autoplay
             narasiAudio.play().catch(() => {
-              console.log("Autoplay dicegah oleh browser.");
+              console.log("Autoplay dicegah oleh browser");
             });
 
           }, 3000);
         }, 3000);
       });
 
-      // Saat marker hilang
+      // Reset saat marker hilang
       marker.addEventListener('markerLost', function () {
         shipModel.setAttribute('visible', 'false');
         firstCard.setAttribute('visible', 'false');
@@ -147,7 +146,6 @@
         narasiAudio.pause();
         narasiAudio.currentTime = 0;
 
-        // Reset semua opacity
         document.querySelectorAll('[opacity]').forEach(el => {
           el.setAttribute('opacity', '0');
         });
