@@ -1,150 +1,191 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>AR Kisah Nabi Isa</title>
-  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-    }
-    #playButton {
-      position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      z-index: 1000;
-      display: none;
-    }
-  </style>
-</head>
-<body>
-  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-    <!-- Marker untuk Nabi Isa -->
-    <a-marker type="pattern" url="NabiIsa.patt" id="isa-marker">
-      <!-- Model Nabi Isa -->
-      <a-entity 
-        id="isa-model"
-        gltf-model="url(nabi_isa.glb)"
+  <head>
+    <meta charset="utf-8" />
+    <title>AR Kisah Nabi Isa</title>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+      }
+      #playButton {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        z-index: 1000;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+      <!-- Marker untuk Nabi Isa -->
+      <a-marker type="pattern" url="Nabilsa.patt" id="isa-marker">
+        <!-- Model Nabi Isa -->
+        <a-entity
+          id="isa-model"
+          gltf-model="url(nabi_isa.glb)"
         scale="0.6 0.6 0.6"
         position="0 -1.2 -1.2"
         rotation="0 180 0"
         visible="false">
-      </a-entity>
+        </a-entity>
 
-      <!-- Card dan teks pertama -->
-      <a-entity id="first-card" visible="false">
-        <a-plane position="0 0.4 0.6" width="1.2" height="0.4" color="#ff0000" opacity="0"
-          animation="property: opacity; to: 0.9; dur: 1000; startEvents: fade-in">
-        </a-plane>
-        <a-text value="Nabi Isa a.s.\nSalah satu Nabi Ulul Azmi" align="center" color="#ffffff"
-          position="0 0.4 0.61" scale="0.4 0.4 0.4" opacity="0"
-          animation="property: opacity; to: 1; dur: 1500; startEvents: fade-in">
-        </a-text>
-      </a-entity>
+        <!-- Card dan teks pertama -->
+        <a-entity id="first-card" visible="false">
+          <a-plane
+            position="0 0.4 0.6"
+            width="1.2"
+            height="0.4"
+            color="#ff0000"
+            opacity="0"
+            animation="property: opacity; to: 0.9; dur: 1000; startEvents: fade-in"
+          ></a-plane>
+          <a-text
+            value="Nabi Isa a.s.\nSalah satu Nabi Ulul Azmi"
+            align="center"
+            color="#ffffff"
+            position="0 0.4 0.61"
+            scale="0.4 0.4 0.4"
+            opacity="0"
+            animation="property: opacity; to: 1; dur: 1500; startEvents: fade-in"
+          ></a-text>
+        </a-entity>
 
-      <!-- Card dan teks kedua -->
-      <a-entity id="second-card" visible="false">
-        <a-plane position="0 0.4 0.6" width="1.2" height="0.4" color="#ff0000" opacity="0"
-          animation="property: opacity; to: 0.9; dur: 1000; startEvents: show-second">
-        </a-plane>
-        <a-text value="Gambar hanya ilustrasi" align="center" color="#ffffff"
-          position="0 0.4 0.61" scale="0.4 0.4 0.4" opacity="0"
-          animation="property: opacity; to: 1; dur: 1500; startEvents: show-second">
-        </a-text>
-      </a-entity>
+        <!-- Card dan teks kedua -->
+        <a-entity id="second-card" visible="false">
+          <a-plane
+            position="0 0.4 0.6"
+            width="1.2"
+            height="0.4"
+            color="#ff0000"
+            opacity="0"
+            animation="property: opacity; to: 0.9; dur: 1000; startEvents: show-second"
+          ></a-plane>
+          <a-text
+            value="Gambar hanya ilustrasi"
+            align="center"
+            color="#ffffff"
+            position="0 0.4 0.61"
+            scale="0.4 0.4 0.4"
+            opacity="0"
+            animation="property: opacity; to: 1; dur: 1500; startEvents: show-second"
+          ></a-text>
+        </a-entity>
 
-      <!-- Card cerita Nabi Isa -->
-      <a-entity id="story-card" visible="false">
-        <a-plane position="0 0.4 0.6" width="1.8" height="1.2" color="#333333" opacity="0"
-          animation="property: opacity; to: 0.9; dur: 1000; startEvents: show-story">
-        </a-plane>
-        <a-text value="Kisah Nabi Isa" align="center" color="#ffffff"
-          position="0 0.9 0.61" width="2.5" opacity="0"
-          animation="property: opacity; to: 1; dur: 1500; startEvents: show-story">
-        </a-text>
-        <a-text value="5 Mukjizat Nabi Isa a.s.:\n\n1. Diciptakan tanpa ayah\n2. Bicara sejak bayi\n3. Membentuk burung dari tanah\n4. Menyembuhkan penyakit\n5. Menghidupkan orang mati"
-          align="center" color="#ffffff" position="0 0.4 0.61" width="2" 
-          opacity="0" wrap-count="30" scale="0.7 0.7 0.7"
-          animation="property: opacity; to: 1; dur: 2000; startEvents: show-story; delay: 500">
-        </a-text>
-      </a-entity>
-    </a-marker>
+        <!-- Card narasi cerita -->
+        <a-entity id="story-card" visible="false">
+          <a-plane
+            position="0 0.4 0.6"
+            width="1.8"
+            height="1.2"
+            color="#333333"
+            opacity="0"
+            animation="property: opacity; to: 0.9; dur: 1000; startEvents: show-story"
+          ></a-plane>
+          <a-text
+            value="Kisah Nabi Isa"
+            align="center"
+            color="#ffffff"
+            position="0 0.9 0.61"
+            width="2.5"
+            opacity="0"
+            animation="property: opacity; to: 1; dur: 1500; startEvents: show-story"
+          ></a-text>
+          <a-text
+            value="5 Mukjizat Nabi Isa a.s.:\n\n1. Diciptakan tanpa ayah\n2. Bicara sejak bayi\n3. Membentuk burung dari tanah\n4. Menyembuhkan penyakit\n5. Menghidupkan orang mati"
+            align="center"
+            color="#ffffff"
+            position="0 0.4 0.61"
+            width="2"
+            opacity="0"
+            wrap-count="30"
+            scale="0.7 0.7 0.7"
+            animation="property: opacity; to: 1; dur: 2000; startEvents: show-story; delay: 500"
+          ></a-text>
+        </a-entity>
+      </a-marker>
 
-    <!-- Audio narasi Nabi Isa -->
-    <a-assets>
-      <audio id="narasi" src="nabi_isa.mp3" preload="auto"></audio>
-    </a-assets>
+      <!-- Audio untuk narasi -->
+      <a-assets>
+        <audio id="narasi" src="nabi_isa.mp3" preload="auto"></audio>
+      </a-assets>
 
-    <a-entity camera></a-entity>
-  </a-scene>
+      <a-entity camera></a-entity>
+    </a-scene>
 
-  <button id="playButton">Putar Narasi</button>
+    <button id="playButton">Putar Narasi</button>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const marker = document.getElementById('isa-marker');
-      const model = document.getElementById('isa-model');
-      const firstCard = document.getElementById('first-card');
-      const secondCard = document.getElementById('second-card');
-      const storyCard = document.getElementById('story-card');
-      const playButton = document.getElementById('playButton');
-      const narasiAudio = document.getElementById('narasi');
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const marker = document.getElementById("isa-marker");
+        const model = document.getElementById("isa-model");
+        const firstCard = document.getElementById("first-card");
+        const secondCard = document.getElementById("second-card");
+        const storyCard = document.getElementById("story-card");
+        const playButton = document.getElementById("playButton");
+        const narasiAudio = document.getElementById("narasi");
 
-      marker.addEventListener('markerFound', function() {
-        model.setAttribute('visible', 'true');
-        firstCard.setAttribute('visible', 'true');
-        firstCard.querySelector('a-plane').emit('fade-in');
-        firstCard.querySelector('a-text').emit('fade-in');
+        // Ketika marker terdeteksi
+        marker.addEventListener("markerFound", function () {
+          model.setAttribute("visible", "true");
 
-        setTimeout(function() {
-          firstCard.setAttribute('visible', 'false');
-          secondCard.setAttribute('visible', 'true');
-          secondCard.querySelector('a-plane').emit('show-second');
-          secondCard.querySelector('a-text').emit('show-second');
+          firstCard.setAttribute("visible", "true");
+          firstCard.querySelector("a-plane").emit("fade-in");
+          firstCard.querySelector("a-text").emit("fade-in");
 
-          setTimeout(function() {
-            secondCard.setAttribute('visible', 'false');
-            storyCard.setAttribute('visible', 'true');
-            storyCard.querySelector('a-plane').emit('show-story');
-            storyCard.querySelectorAll('a-text').forEach(text => text.emit('show-story'));
+          setTimeout(function () {
+            firstCard.setAttribute("visible", "false");
+            secondCard.setAttribute("visible", "true");
+            secondCard.querySelector("a-plane").emit("show-second");
+            secondCard.querySelector("a-text").emit("show-second");
 
-            playButton.style.display = 'block';
-            playButton.onclick = function () {
-              narasiAudio.play();
-              this.style.display = 'none';
-            };
+            setTimeout(function () {
+              secondCard.setAttribute("visible", "false");
+              storyCard.setAttribute("visible", "true");
+              storyCard.querySelector("a-plane").emit("show-story");
+              storyCard
+                .querySelectorAll("a-text")
+                .forEach((text) => text.emit("show-story"));
 
-            narasiAudio.play().catch(() => {
-              console.log("Autoplay dicegah oleh browser");
-            });
+              playButton.style.display = "block";
+              playButton.onclick = function () {
+                narasiAudio.play();
+                this.style.display = "none";
+              };
 
+              narasiAudio.play().catch((e) => {
+                console.log("Autoplay prevented, showing button");
+              });
+            }, 3000);
           }, 3000);
-        }, 3000);
-      });
+        });
 
-      marker.addEventListener('markerLost', function () {
-        model.setAttribute('visible', 'false');
-        firstCard.setAttribute('visible', 'false');
-        secondCard.setAttribute('visible', 'false');
-        storyCard.setAttribute('visible', 'false');
-        playButton.style.display = 'none';
-        narasiAudio.pause();
-        narasiAudio.currentTime = 0;
+        // Ketika marker hilang
+        marker.addEventListener("markerLost", function () {
+          model.setAttribute("visible", "false");
+          firstCard.setAttribute("visible", "false");
+          secondCard.setAttribute("visible", "false");
+          storyCard.setAttribute("visible", "false");
+          playButton.style.display = "none";
 
-        document.querySelectorAll('[opacity]').forEach(el => {
-          el.setAttribute('opacity', '0');
+          narasiAudio.pause();
+          narasiAudio.currentTime = 0;
+
+          document.querySelectorAll("[opacity]").forEach((el) => {
+            el.setAttribute("opacity", "0");
+          });
         });
       });
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
